@@ -1,0 +1,17 @@
+#ifndef LIVRE_H
+#define LIVRE_H
+
+
+class livre : public QObject
+{
+    Q_OBJECT
+public:
+    explicit livre(QObject *parent = 0);
+    
+
+signals:
+
+public slots:
+};
+
+#endif // LIVRE_H
