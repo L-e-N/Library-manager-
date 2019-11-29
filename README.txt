@@ -7,10 +7,10 @@ AddressBook <-> Library
 name <-> author
 text <-> title
 
-mainwindow.h le fichier de définition (header) pour la classe MainWindow
+library.h le fichier de définition (header) pour la classe MainWindow
 ex: contient les widgets QLineEdit
 
-mainwindow.cpp le fichier source, qui comprend l'implémentation de la classe MainWindow
+library.cpp le fichier source, qui comprend l'implémentation de la classe MainWindow
 ex: contient les Qlabel, i.e. les noms de lignes ; contient le layout
 
 main.cpp le fichier qui contient la méthode main() , et une instance de la classe MainWindow
