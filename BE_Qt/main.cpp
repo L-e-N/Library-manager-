@@ -1,13 +1,14 @@
 #include <QtWidgets>
 #include <QtGui>
-#include "library.h"
+
+#include "tablewindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Library library;
-    library.show();
+    TableWindow tableWindow;
+    tableWindow.show();
 
     return app.exec();
 }

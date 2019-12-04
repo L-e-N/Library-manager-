@@ -4,11 +4,20 @@
 #
 #-------------------------------------------------
 
+QT += sql
+
 SOURCES   = \
+    book.cpp \
             main.cpp \
-    library.cpp
+    library.cpp \
+    table.cpp \
+    tablewindow.cpp
 HEADERS   = \
-    library.h
+    book.h \
+    connection.h \
+    library.h \
+    table.h \
+    tablewindow.h
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/tutorials/addressbook/part1
