@@ -9,15 +9,18 @@ QT += sql
 SOURCES   = \
     book.cpp \
             main.cpp \
-    library.cpp \
+    persistentattribute.cpp \
+    persistentobject.cpp \
     table.cpp \
     tablewindow.cpp
 HEADERS   = \
     book.h \
     connection.h \
-    library.h \
+    persistentattribute.h \
+    persistentobject.h \
     table.h \
-    tablewindow.h
+    tablewindow.h \
+    util.h
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/tutorials/addressbook/part1

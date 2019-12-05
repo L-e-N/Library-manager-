@@ -2,8 +2,9 @@
 #define BOOK_H
 
 #include <QString>
+#include <persistentobject.h>
 
-class Book
+class Book: public PersistentObject
 {
 public:
     Book(QString author, QString title, QString isbn, QString publication);

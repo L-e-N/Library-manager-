@@ -21,11 +21,28 @@ Table::Table()
 
 void Table::displayList(QList<Book> bookList)
 {
+    setRowCount(0); // Clear the table
     int size = bookList.size();
+    if(size > 10) {
+        setRowCount(size);
+    } else {
+        setRowCount(10);
+    }
+
     for(unsigned long i=0; i<size; i+=1){
-        setItem(i, 0, new QTableWidgetItem(bookList[i].author));
-        setItem(i, 1, new QTableWidgetItem(bookList[i].title));
-        setItem(i , 2, new QTableWidgetItem(bookList[i].isbn));
-        setItem(i, 3, new QTableWidgetItem(bookList[i].publication));
+        QTableWidgetItem author(bookList[i].author);
+        QTableWidgetItem title(bookList[i].title);
+        QTableWidgetItem isbn(bookList[i].isbn);
+        QTableWidgetItem publication(bookList[i].publication);
+
+        author.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+        title.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+        isbn.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+        publication.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
+        setItem(i, 0, new QTableWidgetItem(author));
+        setItem(i, 1, new QTableWidgetItem(title));
+        setItem(i , 2, new QTableWidgetItem(isbn));
+        setItem(i, 3, new QTableWidgetItem(publication));
     }
 }

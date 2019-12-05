@@ -7,35 +7,47 @@
 #include <QInputDialog>
 #include "connection.h"
 #include <QVBoxLayout>
+#include "util.h"
 
 TableWindow::TableWindow()
 {
-    // ---------- OPEN DB ----------
-    createConnection(db);
-
     // ---------- TABLE ------------
-    // Init table
-    Book book1("Dang", "Arthur", "le", "boss");
-    Book book2("Dang", "ArthurvArthurArthurArthur", "le", "boss");
-    bookList.push_back(book1);
-    bookList.push_back(book2);
-
     table = new Table();
     table->displayList(bookList);
 
     // --------- BUTTON ----------
-    addButton = new QPushButton(tr("&Add"));
+    newButton = new QPushButton(tr("&New Library"));
+    newButton->show();
+    connect(newButton, SIGNAL(clicked()), this, SLOT(newLibrary()));
+
+    addButton = new QPushButton(tr("&Add a book"));
     addButton->show();
     connect(addButton, SIGNAL(clicked()), this, SLOT(addBook()));
+
+    deleteButton = new QPushButton(tr("&Delete a book"));
+    deleteButton->show();
+    connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteBook()));
+
+    loadButton = new QPushButton(tr("&Load a library"));
+    loadButton->show();
+    connect(loadButton, SIGNAL(clicked()), this, SLOT(loadLibrary()));
 
     saveButton = new QPushButton(tr("&Save"));
     saveButton->show();
     connect(saveButton, SIGNAL(clicked()), this, SLOT(saveLibrary()));
 
+    saveAsButton = new QPushButton(tr("&Save as"));
+    saveAsButton->show();
+    connect(saveAsButton, SIGNAL(clicked()), this, SLOT(saveAsLibrary()));
+
     // -------- LAYOUT -------------
     QVBoxLayout *buttonLayout = new QVBoxLayout;
-    buttonLayout->addWidget(addButton, Qt::AlignTop);
+    buttonLayout->addWidget(newButton);
+    buttonLayout->addWidget(addButton);
+    buttonLayout->addWidget(deleteButton);
+    buttonLayout->addWidget(loadButton);
     buttonLayout->addWidget(saveButton);
+    buttonLayout->addWidget(saveAsButton);
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(table, 1, 1); // x, y, hauteur, largeur
@@ -73,13 +85,61 @@ void TableWindow::addBook()
                     Book book(author, title, isbn, publication);
                     bookList.push_back(book);
                     table->displayList(bookList);
+
+                    displayValidation("Book added!");
                 }
             }
         }
     }
 }
 
+void TableWindow::deleteBook()
+{
+    int taille = bookList.size();
+    bool ok = false;
+    int i = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
+                                     tr("Index:"), 0, 0, taille-1, 1, &ok);
+    if (ok)
+    {
+        bookList.removeAt(i);
+        table->displayList(bookList);
+    }
+
+}
+
+void TableWindow::newLibrary()
+{
+    bookList.clear();
+    table->displayList(bookList);
+    closeDatabase();
+}
+
 void TableWindow::saveLibrary()
 {
-    insertBook(bookList[0]);
+    if(bookList.size() != 0){
+        saveToDatabase(this, bookList, false);
+    }
+}
+
+void TableWindow::saveAsLibrary()
+{
+    if(bookList.size() != 0){
+        saveToDatabase(this, bookList, true);
+    }
+}
+
+void TableWindow::loadLibrary()
+{
+    bookList = getBookList(this);
+    table->displayList(bookList); // Problème, affiche encore les anciennes valeurs si pas écrites par dessus.
+}
+
+TableWindow::~TableWindow()
+{
+    delete table;
+    delete newButton;
+    delete addButton;
+    delete loadButton;
+    delete saveButton;
+    delete saveAsButton;
 }

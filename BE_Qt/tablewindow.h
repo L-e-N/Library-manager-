@@ -12,17 +12,25 @@ class TableWindow : public QWidget
     Q_OBJECT
     public:
         TableWindow();
+        ~TableWindow();
 
     public slots:
+        void newLibrary();
         void addBook();
+        void deleteBook();
         void saveLibrary();
+        void saveAsLibrary();
+        void loadLibrary();
 
     private:
+        QPushButton *newButton;
         QPushButton *addButton;
+        QPushButton *deleteButton;
         QPushButton *saveButton;
+        QPushButton *saveAsButton;
+        QPushButton *loadButton;
         QList<Book> bookList;
         Table *table;
-        QSqlDatabase db;
 };
 
 #endif // TABLEWINDOW_H

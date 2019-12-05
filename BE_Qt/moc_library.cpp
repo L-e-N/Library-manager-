@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'tablewindow.h'
+** Meta object code from reading C++ file 'library.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.8)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../BE_Qt/tablewindow.h"
+#include "library.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'tablewindow.h' doesn't include <QObject>."
+#error "The header file 'library.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.9.8. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,36 +20,38 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_TableWindow_t {
-    QByteArrayData data[5];
-    char stringdata0[45];
+struct qt_meta_stringdata_Library_t {
+    QByteArrayData data[7];
+    char stringdata0[59];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_TableWindow_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_Library_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_TableWindow_t qt_meta_stringdata_TableWindow = {
+static const qt_meta_stringdata_Library_t qt_meta_stringdata_Library = {
     {
-QT_MOC_LITERAL(0, 0, 11), // "TableWindow"
-QT_MOC_LITERAL(1, 12, 7), // "addBook"
-QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 11), // "saveLibrary"
-QT_MOC_LITERAL(4, 33, 11) // "loadLibrary"
+QT_MOC_LITERAL(0, 0, 7), // "Library"
+QT_MOC_LITERAL(1, 8, 7), // "addBook"
+QT_MOC_LITERAL(2, 16, 0), // ""
+QT_MOC_LITERAL(3, 17, 10), // "submitBook"
+QT_MOC_LITERAL(4, 28, 6), // "cancel"
+QT_MOC_LITERAL(5, 35, 10), // "saveToFile"
+QT_MOC_LITERAL(6, 46, 12) // "loadFromFile"
 
     },
-    "TableWindow\0addBook\0\0saveLibrary\0"
-    "loadLibrary"
+    "Library\0addBook\0\0submitBook\0cancel\0"
+    "saveToFile\0loadFromFile"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_TableWindow[] = {
+static const uint qt_meta_data_Library[] = {
 
  // content:
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -57,11 +59,15 @@ static const uint qt_meta_data_TableWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    0,   31,    2, 0x0a /* Public */,
+       1,    0,   39,    2, 0x0a /* Public */,
+       3,    0,   40,    2, 0x0a /* Public */,
+       4,    0,   41,    2, 0x0a /* Public */,
+       5,    0,   42,    2, 0x0a /* Public */,
+       6,    0,   43,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -69,53 +75,55 @@ static const uint qt_meta_data_TableWindow[] = {
        0        // eod
 };
 
-void TableWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Library::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        TableWindow *_t = static_cast<TableWindow *>(_o);
+        Library *_t = static_cast<Library *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->addBook(); break;
-        case 1: _t->saveLibrary(); break;
-        case 2: _t->loadLibrary(); break;
+        case 1: _t->submitBook(); break;
+        case 2: _t->cancel(); break;
+        case 3: _t->saveToFile(); break;
+        case 4: _t->loadFromFile(); break;
         default: ;
         }
     }
     Q_UNUSED(_a);
 }
 
-const QMetaObject TableWindow::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_TableWindow.data,
-      qt_meta_data_TableWindow,  qt_static_metacall, nullptr, nullptr}
+const QMetaObject Library::staticMetaObject = {
+    { &QWidget::staticMetaObject, qt_meta_stringdata_Library.data,
+      qt_meta_data_Library,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *TableWindow::metaObject() const
+const QMetaObject *Library::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *TableWindow::qt_metacast(const char *_clname)
+void *Library::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_TableWindow.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_Library.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int TableWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Library::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }
