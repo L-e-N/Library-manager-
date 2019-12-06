@@ -8,14 +8,16 @@
 class PersistentObject {
 
     private:
-        QList<PersistentAttribute*> *attributes;
         QString table;
+        QList<PersistentAttribute*> *attributes;
 
     public:
         PersistentObject(QString);
         void addAttributes(PersistentAttribute*);
         QString getTableName();
         QList<PersistentAttribute*> * getAttributeList();
+
+        void saveToDatabase();
 };
 
 #endif // PERSISTENTOBJECT_H

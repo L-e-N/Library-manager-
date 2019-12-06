@@ -17,18 +17,22 @@
 
 static bool createConnection(QString databaseName)
 {
+    // Récupération de l'instance db (QSqlDatabase a une unique instance globale)
     QSqlDatabase db = QSqlDatabase::database();
 
+    // Si l'instance n'a pas de connexion, en crée une
     if(!db.isValid()){
-        db = QSqlDatabase::addDatabase("QSQLITE"); // Ouvre une connexion avec le nom par défaut une fois
+        db = QSqlDatabase::addDatabase("QSQLITE");
     }
+
+    // Désactive la connection pour changer le nom de la db auquelle elle est liée
     if(db.isOpen())
     {
-        db.close(); // Ferme pour pouvoir changer le nom
+        db.close();
     }
+    db.setDatabaseName(databaseName); // Lie la connexion à la db choisie (soit nouveau nom, ou path to .db)
 
-    db.setDatabaseName(databaseName); // Lie la connection à la database name
-
+    // Active la connection
     if (!db.open()) {
         std::cout << "Unable to open the database" << std::endl;
     }
@@ -36,93 +40,125 @@ static bool createConnection(QString databaseName)
     return true;
 }
 
-QList<Book> getBookList(QWidget *parent)
+// Récupère les livres de la base de données et les renvoie
+QList<Book*> getBookList(QWidget *parent)
 {
+    // Choisi le fichier .db d'où récupérer les livres
     QString databaseName = QFileDialog::getOpenFileName(
                 parent,
                 "Open a database file",
                 "",
                 "All Files (*.db)");
 
+    // Connection à cette base de donnée
     createConnection(databaseName);
 
-    QList<Book> bookList;
-    Book book("a","a", "a", "a"); // Sample book to retrieve tableName..
+    QList<Book*> bookList;
+    Book book("a","a", "a", "a"); // Pas ouf mais crée un sample de livre pour récupérer le nom de la table...
     QString tableName = book.getTableName();
+    QList<PersistentAttribute*> *attributes = book.getAttributeList(); // Récupère la liste des attributs
 
+    // SELECT author, title, isbn, publication FROM <tableName>
     QSqlQuery query;
-    query.exec(QString("SELECT * FROM "+tableName));
 
-    int authorNo = query.record().indexOf("author");
-    int titleNo = query.record().indexOf("title");
-    int isbnNo = query.record().indexOf("isbn");
-    int publicationNo = query.record().indexOf("publication");
+    QString queryString = "SELECT ";
+    for (int j = 0; j < attributes->size(); ++j) {
+        if(j>0){
+            queryString += ", ";
+        }
+        queryString += attributes->at(j)->name;
+    }
+    queryString += " FROM "+tableName;
+    query.exec(queryString);
+
+    // Create book and the bookList from the result
+    QList<QString> values; // Liste de types différents? ou de QVariant à convert en itérant?
     while(query.next())
     {
-        QString author = query.value(authorNo).toString();
-        QString title = query.value(titleNo).toString();
-        QString isbn = query.value(isbnNo).toString();
-        QString publication = query.value(publicationNo).toString();
-        Book book(author, title, isbn, publication);
+        values.clear();
+        for(int i=0; i<attributes->size(); i++){
+            switch(attributes->at(i)->type){
+                case QVariant::String:
+                    values.push_back(query.value(attributes->at(i)->name).toString());
+                    break;
+                default:
+                    std::cout << "Not implemented type" << std::endl;
+            }
+        }
+        // Constructeur pour créer l'object persistant itérativement?
+        Book *book = new Book(values[0], values[1], values[2], values[3]); // Syntaxes pour mettre la liste en argument?
         bookList.push_back(book);
     }
 
-    displayValidation("Library loaded!");
+      displayValidation("Library loaded!");
+      return bookList;
 
-    return bookList;
+      // -- Ancien code --
+      //    query.exec("SELECT * FROM "+tableName);
+
+      //    int authorNo = query.record().indexOf("author");
+      //   int titleNo = query.record().indexOf("title");
+      //   int isbnNo = query.record().indexOf("isbn");
+      //   int publicationNo = query.record().indexOf("publication");
+      //   while(query.next())
+      //   {
+      //       QString author = query.value(authorNo).toString();
+      //       QString title = query.value(titleNo).toString();
+      //       QString isbn = query.value(isbnNo).toString();
+      //       QString publication = query.value(publicationNo).toString();
+      //       Book *book = new Book(author, title, isbn, publication);
+      //       bookList.push_back(book);
+      //   }
+      // -----------------
 }
 
-static void saveToDatabase(QWidget *parent, QList<Book> bookList, bool newFile)
+// Sauvegarde les livres d'une liste donnée dans une base de donnée
+static void saveToDatabase(QWidget *parent, QList<Book*> *pBookList, bool newFile)
 {
-    QString tableName = bookList[0].getTableName();
-    QString databaseName;
-    QSqlDatabase db = QSqlDatabase::database(); // Retrouve l'objet db
+    QList<Book*> bookList = *pBookList; // Récupère le pointeur à la bookList pour pas avoir une copie et avoir des mauvais pointeurs dedans
+    QString tableName = bookList[0]->getTableName(); // Récupère le nom de la table
+    QList<PersistentAttribute*> *attributes = bookList[0]->getAttributeList(); // Récupère la liste des attributs
 
-    // Save dans un nouveau fichier
+    // --------------- CONNECTION A LA DB --------------
+    QSqlDatabase db = QSqlDatabase::database();
+    // On sauvegarde dans une nouvelle database il n'a pas de connexion active ou si on veut dans un nouveau fichier
     if(!db.isValid() || newFile){
-        qDebug("Creating a database");
-        QString databaseName;
-        databaseName = QInputDialog::getText(parent, "Save to a database", "What is the name of the file to save in?");
-
+        QString databaseName = QInputDialog::getText(parent, "Save to a database", "What is the name of the file to save in?");
         createConnection(databaseName);
     }
 
-    // BOURRIN pour save, je delete toute la table et je la recrée..
+    // Pas commode, au lieu de delete de la databse un livre, on drop tout et on réinsère tout
     QSqlQuery query;
     query.exec(QString("DROP TABLE "+tableName));
 
-    QList<PersistentAttribute*> *attributes = bookList[0].getAttributeList();
-
-    // CREATE TABLE
-    // CREATE TABLE <tableName> (author varchar(20) primary key, title varchar(20), isbn..)
-    QString queryString = "create table "+tableName+" (";
-    QString test =  attributes->at(0)->name;
+    // ---------- CREATION DE LA TABLE -------------
+    // RQ: pas obligatoire d'avoir une primary key
+    // CREATE TABLE book (author varchar(20) primary key, title varchar(20), isbn varchar(20), publication varchar(20))
+    QString queryString = "CREATE TABLE "+tableName+" (";
     for (int i = 0; i <attributes->size(); ++i) {
+        if(i>0){
+            queryString += ", ";
+        }
         QString type;
         switch(attributes->at(i)->type) {
             case QVariant::String :
-                type = " varchar (20),";
+                type = " varchar (20)";
             break;
             default:
                 return;
         }
-        queryString += attributes->at(i)->name + " "+type;
-        if(i == 0){
-            queryString.remove(query.size(), 1); // Remove last character
-            queryString += " primary key,";
-        }
+        queryString += attributes->at(i)->name+type;
     }
-    queryString.remove(query.size(), 1); // Remove last character ,
-    queryString.append(")");
-
+    queryString += ")";
     query.exec(queryString);
 
+    // RQ: first attribute is
+    // --------------- INSERTION DES LIVRES DANS LA DB --------------
     // INSERT INTO book (author, title, isbn, publication) VALUES (:author, :title, :isbn, :publication)"
-    int taille = bookList.size();
-    for(int i=0; i<taille; i+=1){
+    for(int i=0; i<bookList.size(); i+=1){
         queryString = "INSERT INTO "+tableName+" (";
 
-        // "author, title, isbn, publication"
+        // INSERT INTO book (author, title, isbn, publication
         for (int j = 0; j <attributes->size(); ++j) {
             if(j>0){
                 queryString += ", ";
@@ -130,8 +166,10 @@ static void saveToDatabase(QWidget *parent, QList<Book> bookList, bool newFile)
             queryString += attributes->at(j)->name;
         }
 
+        // INSERT INTO book (author, title, isbn, publication) VALUES (
         queryString += ") VALUES (";
-        // :author, :title, :isbn, :publication
+
+        // INSERT INTO book (author, title, isbn, publication) VALUES (:author, :title, :isbn, :publication)
         for (int j = 0; j <attributes->size(); ++j) {
             if(j>0){
                 queryString += ", ";
@@ -140,31 +178,21 @@ static void saveToDatabase(QWidget *parent, QList<Book> bookList, bool newFile)
         }
         queryString += ")";
 
+        // Associe les valeurs du livre aux :author, :title...
         query.prepare(queryString);
+        attributes = bookList[i]->getAttributeList();
         for (int j = 0; j <attributes->size(); ++j) {
             QString name = attributes->at(j)->name;
-//            QString* data = (QString*) attributes->at(j)->data;
             switch(attributes->at(i)->type) {
                 case QVariant::String:
-                    query.bindValue(":"+name, bookList[i].author);
+                    query.bindValue(":"+name, *((QString*) attributes->at(j)->pData));
                     break;
                 default:
                     return;
             }
         }
-
         query.exec();
-
-
     }
-
-//    query.prepare(QString("INSERT INTO "+tableName+" (author, title, isbn, publication) VALUES (:author, :title, :isbn, :publication)"));
-//    query.bindValue(":author", bookList[i].author);
-//    query.bindValue(":title", bookList[i].title);
-//    query.bindValue(":isbn", bookList[i].isbn);
-//    query.bindValue(":publication", bookList[i].publication);
-//    query.exec();
-
     displayValidation("Library saved!");
 }
 

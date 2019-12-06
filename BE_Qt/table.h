@@ -10,7 +10,7 @@ class Table: public QTableWidget
 {
 public:
     Table();
-    void displayList(QList<Book> bookList); // const& pour pas le copier et le changer
+    void displayList(QList<Book*> bookList);
 private:
 };
 

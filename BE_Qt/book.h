@@ -8,10 +8,10 @@ class Book: public PersistentObject
 {
 public:
     Book(QString author, QString title, QString isbn, QString publication);
-    QString author; //change to QStringList
+    QString author; // change to QStringList
     QString title;
     QString isbn;
-    QString publication;
+    QString publication; // change to int
 };
 
 #endif // BOOK_H

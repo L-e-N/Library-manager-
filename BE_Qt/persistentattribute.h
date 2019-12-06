@@ -9,7 +9,7 @@ class PersistentAttribute
 public:
     QString name;
     QVariant::Type type;
-    void *data; // pointeur vers la donnée
+    void *pData; // pointeur vers la donnée
     PersistentAttribute(QString, QVariant::Type, void *);
 };
 

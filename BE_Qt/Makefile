@@ -52,20 +52,16 @@ OBJECTS_DIR   = ./
 
 SOURCES       = book.cpp \
 		main.cpp \
-		library.cpp \
 		persistentattribute.cpp \
 		persistentobject.cpp \
 		table.cpp \
-		tablewindow.cpp moc_library.cpp \
-		moc_tablewindow.cpp
+		tablewindow.cpp moc_tablewindow.cpp
 OBJECTS       = book.o \
 		main.o \
-		library.o \
 		persistentattribute.o \
 		persistentobject.o \
 		table.o \
 		tablewindow.o \
-		moc_library.o \
 		moc_tablewindow.o
 DIST          = ../../../../Qt/5.9.8/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.8/clang_64/mkspecs/qdevice.pri \
@@ -254,14 +250,12 @@ DIST          = ../../../../Qt/5.9.8/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.9.8/clang_64/mkspecs/features/lex.prf \
 		BE_Qt.pro book.h \
 		connection.h \
-		library.h \
 		persistentattribute.h \
 		persistentobject.h \
 		table.h \
 		tablewindow.h \
 		util.h book.cpp \
 		main.cpp \
-		library.cpp \
 		persistentattribute.cpp \
 		persistentobject.cpp \
 		table.cpp \
@@ -694,8 +688,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.8/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents book.h connection.h library.h persistentattribute.h persistentobject.h table.h tablewindow.h util.h $(DISTDIR)/
-	$(COPY_FILE) --parents book.cpp main.cpp library.cpp persistentattribute.cpp persistentobject.cpp table.cpp tablewindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents book.h connection.h persistentattribute.h persistentobject.h table.h tablewindow.h util.h $(DISTDIR)/
+	$(COPY_FILE) --parents book.cpp main.cpp persistentattribute.cpp persistentobject.cpp table.cpp tablewindow.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -727,122 +721,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt/5.9.8/clang_64/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../../../Qt/5.9.8/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_library.cpp moc_tablewindow.cpp
+compiler_moc_header_make_all: moc_tablewindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_library.cpp moc_tablewindow.cpp
-moc_library.cpp: ../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/QtGui \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtguiglobal.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qabstracttextdocumentlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessible.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessiblebridge.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessibleobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessibleplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbackingstore.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbitmap.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbrush.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qclipboard.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qcolor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qcursor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qdrag.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qevent.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfont.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontdatabase.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontinfo.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericmatrix.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericpluginfactory.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qglyphrun.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qguiapplication.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qicon.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qiconengine.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qiconengineplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimage.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimageiohandler.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimagereader.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimagewriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qinputmethod.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qkeysequence.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmatrix.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmatrix4x4.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmovie.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qoffscreensurface.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengl.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglbuffer.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglcontext.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengldebug.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglextrafunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglframebufferobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglfunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglpixeltransferoptions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglshaderprogram.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltexture.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltextureblitter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltimerquery.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglversionfunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglvertexarrayobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagedpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagelayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagesize.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintdevicewindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintengine.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpainter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpainterpath.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpalette.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpdfwriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpen.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpicture.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpictureformatplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixelformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixmapcache.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpolygon.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qquaternion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrasterwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrawfont.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qregion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrgb.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrgba64.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qscreen.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsessionmanager.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstandarditemmodel.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstatictext.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstylehints.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsurface.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsurfaceformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsyntaxhighlighter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextcursor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocument.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocumentfragment.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocumentwriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextlist.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextoption.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtexttable.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtouchdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtransform.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvalidator.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector3d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector4d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qwindowdefs.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/QMap \
-		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/qmap.h \
-		library.h \
-		moc_predefs.h \
-		../../../../Qt/5.9.8/clang_64/bin/moc
-	/Users/dang/Qt/5.9.8/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/dang/Qt/5.9.8/clang_64/mkspecs/macx-clang -I/Users/dang/Documents/qt/Library-manager-/BE_Qt -I/Users/dang/Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers -I/Users/dang/Qt/5.9.8/clang_64/lib/QtGui.framework/Headers -I/Users/dang/Qt/5.9.8/clang_64/lib/QtSql.framework/Headers -I/Users/dang/Qt/5.9.8/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/dang/Qt/5.9.8/clang_64/lib library.h -o moc_library.cpp
-
+	-$(DEL_FILE) moc_tablewindow.cpp
 moc_tablewindow.cpp: ../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		book.h \
@@ -1143,245 +1024,6 @@ main.o: main.cpp ../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/Q
 		../../../../Qt/5.9.8/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-library.o: library.cpp ../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/QtGui \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtguiglobal.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qabstracttextdocumentlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessible.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessiblebridge.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessibleobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qaccessibleplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbackingstore.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbitmap.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qbrush.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qclipboard.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qcolor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qcursor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qdrag.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qevent.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfont.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontdatabase.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontinfo.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericmatrix.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qgenericpluginfactory.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qglyphrun.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qguiapplication.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qicon.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qiconengine.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qiconengineplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimage.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimageiohandler.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimagereader.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qimagewriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qinputmethod.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qkeysequence.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmatrix.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmatrix4x4.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qmovie.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qoffscreensurface.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengl.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglbuffer.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglcontext.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengldebug.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglextrafunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglframebufferobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglfunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglpixeltransferoptions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglshaderprogram.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltexture.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltextureblitter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopengltimerquery.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglversionfunctions.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglvertexarrayobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qopenglwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagedpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagelayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpagesize.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintdevicewindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpaintengine.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpainter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpainterpath.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpalette.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpdfwriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpen.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpicture.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpictureformatplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixelformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpixmapcache.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qpolygon.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qquaternion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrasterwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrawfont.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qregion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrgb.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qrgba64.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qscreen.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsessionmanager.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstandarditemmodel.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstatictext.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qstylehints.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsurface.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsurfaceformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qsyntaxhighlighter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextcursor.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocument.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocumentfragment.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextdocumentwriter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextformat.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextlist.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextobject.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtextoption.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtexttable.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtouchdevice.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtransform.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvalidator.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector3d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qvector4d.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qwindowdefs.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
-		library.h \
-		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/QMap \
-		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/qmap.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o library.o library.cpp
-
 persistentattribute.o: persistentattribute.cpp persistentattribute.h \
 		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/Qvariant \
 		../../../../Qt/5.9.8/clang_64/lib/QtCore.framework/Headers/qvariant.h \
@@ -1455,9 +1097,6 @@ tablewindow.o: tablewindow.cpp tablewindow.h \
 		../../../../Qt/5.9.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tablewindow.o tablewindow.cpp
 
-moc_library.o: moc_library.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_library.o moc_library.cpp
-
 moc_tablewindow.o: moc_tablewindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tablewindow.o moc_tablewindow.cpp
 
@@ -1478,14 +1117,12 @@ install_sources: first FORCE
 	@test -d $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1 || mkdir -p $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/book.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/book.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/main.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/main.cpp
-	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/library.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/library.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/persistentattribute.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentattribute.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/persistentobject.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentobject.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/table.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/table.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/tablewindow.cpp $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/tablewindow.cpp
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/book.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/book.h
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/connection.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/connection.h
-	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/library.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/library.h
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/persistentattribute.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentattribute.h
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/persistentobject.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentobject.h
 	-$(QINSTALL) /Users/dang/Documents/qt/Library-manager-/BE_Qt/table.h $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/table.h
@@ -1498,14 +1135,12 @@ uninstall_sources: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/table.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentobject.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentattribute.h
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/library.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/connection.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/book.h
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/tablewindow.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/table.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentobject.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/persistentattribute.cpp
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/library.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/main.cpp
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/book.cpp
 	-$(DEL_DIR) $(INSTALL_ROOT)/Users/dang/Qt/Examples/Qt-5.9.8/tutorials/addressbook/part1/ 

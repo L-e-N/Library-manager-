@@ -4,7 +4,7 @@
 
 Table::Table()
 {
-    // Instancie les paramètres de la table (taille, ligne, column, headers)
+    // Initialize les paramètres de la table (taille, ligne, column, headers)
     setFixedSize(460, 450);
     setColumnCount(4);
     setRowCount(10);
@@ -13,15 +13,18 @@ Table::Table()
     setColumnWidth(2, 50);
     setColumnWidth(3, 100);
 
+    // Initialize les headers de la table
     QStringList tableHeaders;
     tableHeaders << "author" << "title" << "isbn" << "publication";
     setHorizontalHeaderLabels(tableHeaders);
 }
 
-
-void Table::displayList(QList<Book> bookList)
+// Affiche les livres de la liste dans le widget
+void Table::displayList(QList<Book*> bookList)
 {
-    setRowCount(0); // Clear the table
+    setRowCount(0); // Clear la table
+
+    // Re-initialize la taille de la table
     int size = bookList.size();
     if(size > 10) {
         setRowCount(size);
@@ -29,12 +32,14 @@ void Table::displayList(QList<Book> bookList)
         setRowCount(10);
     }
 
+    // Pour chaque ligne, rajoute les attributs dans la case correspondante
     for(unsigned long i=0; i<size; i+=1){
-        QTableWidgetItem author(bookList[i].author);
-        QTableWidgetItem title(bookList[i].title);
-        QTableWidgetItem isbn(bookList[i].isbn);
-        QTableWidgetItem publication(bookList[i].publication);
+        QTableWidgetItem author(bookList[i]->author);
+        QTableWidgetItem title(bookList[i]->title);
+        QTableWidgetItem isbn(bookList[i]->isbn);
+        QTableWidgetItem publication(bookList[i]->publication);
 
+        // Empêche ces cases d'être éditable
         author.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
         title.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
         isbn.setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);

@@ -1,7 +1,7 @@
 #include "persistentattribute.h"
 
-PersistentAttribute::PersistentAttribute(QString name, QVariant::Type type, void * data) {
+PersistentAttribute::PersistentAttribute(QString name, QVariant::Type type, void * pData) {
     this->name = name;
     this->type = type;
-    this->data = data;
+    this->pData = pData;
 }
